@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const fetch = require('node-fetch');
 const { MessageEmbed } = require('discord.js');
 module.exports={
     data: new SlashCommandBuilder() 
