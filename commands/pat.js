@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const fetch = require('node-fetch');
 const { MessageEmbed } = require('discord.js');
 var list = [
     'https://c.tenor.com/N41zKEDABuUAAAAC/anime-head-pat-anime-pat.gif',
