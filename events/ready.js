@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 var {vtuberlist,yTlives} = require('../lives.js');
-const config = require("../config.json");
+const apikey = process.env.APIKEY
 const fetch = require("node-fetch");
 const pool = require('../db-connection.js');
 const {YTLive} = require("../YTlive/YTlive");
@@ -121,7 +121,7 @@ async function sendDMessage(live,estado,vTuber){
     if(estado===1){
 		Status = `En Vivo`;
 		view = live.getViewCount();
-		let apiurl = "https://www.googleapis.com/youtube/v3/videos?part=statistics,snippet,liveStreamingDetails&fields=items(snippet(title),liveStreamingDetails(actualStartTime),statistics(viewCount))&id="+live.liveId+"&key="+config.apikey;
+		let apiurl = "https://www.googleapis.com/youtube/v3/videos?part=statistics,snippet,liveStreamingDetails&fields=items(snippet(title),liveStreamingDetails(actualStartTime),statistics(viewCount))&id="+live.liveId+"&key="+apikey;
 		let apirl = await fetch(apiurl);
 		let r = await apirl.json();
 		let startime = r.items[0].liveStreamingDetails.actualStartTime;
