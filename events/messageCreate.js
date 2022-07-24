@@ -1,14 +1,16 @@
 const fetch = require("node-fetch");
 const pool = require('../db-connection.js');
-const config = require("../config.json");
 const {MongoClient} = require('mongodb');
-var mongoclient = new MongoClient(config.uri);
+const prefix = process.env.PREFIX
+const apikey = process.env.APIKEY
+const uri = process.env.URI
+var mongoclient = new MongoClient(uri);
 var offset;
 module.exports = {
 	name: 'messageCreate',
 	async execute(message) {
-		if (!message.content.startsWith(config.prefix) || message.author.bot) return; 
-		const args = message.content.slice(config.prefix.length).trim().split(/ +/);
+		if (!message.content.startsWith(prefix) || message.author.bot) return; 
+		const args = message.content.slice(prefix.length).trim().split(/ +/);
 		if(args[0]!='t') return;
 		const database = mongoclient.db('kujirabot');
         const Url = database.collection('Url');
@@ -23,7 +25,7 @@ module.exports = {
         let selId_vtuber = `SELECT * FROM kujiraBot.video WHERE id_vtuber='${key[0].id_vtuber}' and estado=1 ORDER BY id_videos DESC`
         let urlvideos = await pool.query(selId_vtuber);
         if(urlvideos.length===0) return message.channel.send("No esta en vivo ahora...");
-		let apiurl = "https://www.googleapis.com/youtube/v3/videos?part=snippet,liveStreamingDetails&fields=items(snippet(title,liveBroadcastContent),liveStreamingDetails(actualStartTime))&id="+urlvideos[0].id_video+"&key="+config.apikey;
+		let apiurl = "https://www.googleapis.com/youtube/v3/videos?part=snippet,liveStreamingDetails&fields=items(snippet(title,liveBroadcastContent),liveStreamingDetails(actualStartTime))&id="+urlvideos[0].id_video+"&key="+apikey;
 		const apirl = await fetch(apiurl);
         const r = await apirl.json();
         const query = { _id: `${urlvideos[0].id_video}`,titulo:`${r.items[0].snippet.title}`};
