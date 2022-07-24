@@ -1,12 +1,10 @@
-const client = require('nekos.life');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const neko = new client();
 module.exports={
     data: new SlashCommandBuilder()
         .setName('catmoji')
 		.setDescription('Get a random emoji cat'),
     async execute(interaction) {
-        let cat = await neko.catText()
+        let cat = await fetch("https://nekos.life/api/v2/cat").then(r=>r.json())
         await interaction.reply({ content:`${cat.cat}`,fetchReply: true} );
     }
 }

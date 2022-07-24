@@ -1,7 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require('discord.js');
-const client = require('nekos.life');
-const neko = new client();
 module.exports={
     data: new SlashCommandBuilder() 
         .setName('hug')
@@ -11,7 +9,7 @@ module.exports={
                 .setDescription('User to hug')
                 .setRequired(true)),
     async execute(interaction) {
-        let hug = await neko.hug()
+        let hug = await fetch("https://nekos.life/api/hug").then(r=>r.json())
         let user=interaction.options.getUser('user')
         if(user.id===interaction.applicationId) return interaction.reply("**NO NECESITO TUS ABRASOS ＼（〇_ｏ）／**")
         if(interaction.member.user.id===user.id) return interaction.reply("**Te falta afecto como para abrazarte solo? (ノへ￣、)**")

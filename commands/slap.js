@@ -1,7 +1,13 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require('discord.js');
-const client = require('nekos.life');
-const neko = new client();
+var list = [
+    'https://c.tenor.com/CvBTA0GyrogAAAAC/anime-slap.gif',
+    'https://c.tenor.com/iQ6cTO57hWMAAAAC/slap-anime.gif',
+    'https://c.tenor.com/AzIExqZBjNoAAAAC/anime-slap.gif',
+    'https://c.tenor.com/GBShVmDnx9kAAAAC/anime-slap.gif',
+    'https://c.tenor.com/PcYzzmhxGhkAAAAC/horse-slap.gif',
+    'https://c.tenor.com/5eI0koENMAAAAAAC/anime-hit.gif',
+  ];
 module.exports={
     data: new SlashCommandBuilder() 
     .setName('slap')
@@ -11,14 +17,14 @@ module.exports={
                 .setDescription('User to slap')
                 .setRequired(true)),
     async execute(interaction) {
-        let slap = await neko.slap()
+        let slap= list[Math.floor(Math.random() * list.length)];
         let user=interaction.options.getUser('user')
         if(user.id===interaction.applicationId) return interaction.reply("**EH, QUE A MI NO ￣へ￣**")
         if(interaction.member.user.id===user.id) return interaction.reply("**SI QUIERES YO TE PEGO? (⊙x⊙;)**")
         const embed = new MessageEmbed()
             .setTitle(user.username + " Just got a slap from " + interaction.member.user.username, interaction.guild.iconURL({ dynamic: true, format: 'png'}))
-            .setImage(slap.url)
-            .setURL(slap.url)
+            .setImage(slap)
+            .setURL(slap)
             .setColor("RANDOM")
             .setDescription((user.toString() + " got a slap from " + interaction.member.user.toString()))
             .setTimestamp()

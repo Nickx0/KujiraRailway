@@ -12,7 +12,6 @@ module.exports = {
     async execute(interaction) {
         let name=interaction.options.getString('name')
         let x = await malScraper.getInfoFromName(name)
-        console.log(x)
         if(x){
             const embed = new MessageEmbed()
                 .setImage(x.picture)
