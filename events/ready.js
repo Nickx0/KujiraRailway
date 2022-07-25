@@ -15,7 +15,7 @@ module.exports = {
         //checkTwitchLives();
         checkLives();
 		checkVtubers();
-		checklastVideoRSS();
+		//checklastVideoRSS();
         console.log("Init!!");
 }, 
 };
