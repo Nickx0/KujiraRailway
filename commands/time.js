@@ -14,7 +14,7 @@ module.exports = {
 		.setName('time')
 		.setDescription('Get time from stream'),
 	async execute(interaction) {
-        await interaction.deferReply();
+        await interaction.deferReply()
         let channel = interaction.channelId;
         let callvtuberkey = `select a.canal_alerta_key,v.id_vtuber
         from canal_alerta a 
