@@ -34,7 +34,7 @@ module.exports={
                 .setDescription('link of stream to get tags from')
                 .setRequired(false)),
     async execute(interaction) {
-        await interaction.deferReply()
+        await interaction.deferReply();
         await mongoclient.connect();
         const database = mongoclient.db('kujirabot');
         const Url = database.collection('Url');
